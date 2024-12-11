@@ -1,0 +1,173 @@
+---
+import { getPermalink } from '~/utils/permalinks';
+import { getGalleryImages } from '~/components/contentful/contentful';
+import { getBannerImage } from '~/components/contentful/contentful';
+
+// Ambil data dari Contentful
+const galleryImages = await getGalleryImages();
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Photo</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="css/templatemo-style.css" />
+    <style>
+        .tm-video-item img {
+          width: 4000px;
+          height: 300px;
+          object-fit: cover;
+        }
+      </style>
+  </head>
+  <body>
+    <!-- Page Loader -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <!-- <i class="fas fa-film mr-2"></i> -->
+          Catalog-Z
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link nav-link-1 active" aria-current="page" href={getPermalink('/')}>Photos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-2" href={getPermalink('videos')}>Videos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-3" href={getPermalink('about')}>About</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link nav-link-4" href={getPermalink('contact')}>Contact</a>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="tm-hero d-flex justify-content-center align-items-center"
+      data-parallax="scroll"
+      data-image-src="img/hero.jpg"
+    >
+      <form class="d-flex tm-search-form">
+        <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success tm-search-btn" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="container-fluid tm-container-content tm-mt-60">
+      <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary">PAUD</h2>
+      </div>
+      <div class="row tm-mb-90">
+        <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
+          <img src="img/img-01-big.jpg" alt="Image" class="img-fluid" />
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+          <div class="tm-bg-gray tm-video-details">
+            <p class="mb-4">
+             Lorem ipsum
+            </p>
+            <div class="text-center mb-5">
+              <a href="https://www.canva.com/design/DAGYA2jbROk/gwjHnOhoiyDvx5CHi5IfKQ/edit" class="btn btn-primary tm-btn-big">Get Link</a>
+            </div>
+            <div class="mb-4 d-flex flex-wrap">
+              <div class="mr-4 mb-2">
+                <span class="tm-text-gray-dark">Dimension: </span><span class="tm-text-primary">1920x1080</span>
+              </div>
+              <div class="mr-4 mb-2">
+                <span class="tm-text-gray-dark">Format: </span><span class="tm-text-primary">JPG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary">Related Photos</h2>
+      </div>
+      <div class="row mb-3 tm-gallery">
+        {
+            galleryImages.length > 0 ? (
+              galleryImages.map((image) => (
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" key={image.sys.id}>
+                  <figure class="effect-ming tm-video-item">
+                    <img src={`https://${image.fields.gambar.fields.file.url}`} alt="Gambar" />
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                      <h2>{image.fields.judulGambar}</h2>
+                      <a href={getPermalink('photo-detail')}>Detail Photo</a>
+                    </figcaption>
+                  </figure>
+                  <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light">18 Oct 2020</span>
+                    <span>9,906 views</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No gallery images found.</p>
+            )
+          }
+          <div class="d-flex justify-content-between tm-text-gray">
+            <span class="tm-text-gray-light">16 Oct 2020</span>
+            <span>12,460 views</span>
+          </div>
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container-fluid, tm-container-content -->
+
+    <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
+        <div class="container-fluid tm-container-small">
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
+              <h3 class="tm-text-primary mb-4 tm-footer-title">Tools Repository</h3>
+              <p>"Yuk, cari foto dan video stock keren buat kebutuhan kamu! Klik dan siap pakai. Simple banget, kan?"</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+              <h3 class="tm-text-primary mb-4 tm-footer-title">Our Links</h3>
+              <ul class="tm-footer-links pl-0">
+                <li><a href="#">Advertise</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Our Company</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+              <ul class="tm-social-links d-flex justify-content-end pl-0 mb-5">
+                <li class="mb-2"><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>
+                <li class="mb-2"><a href="https://instagram.com"><i class="fab fa-instagram"></i></a></li>
+                <li class="mb-2"><a href="https://pinterest.com"><i class="fab fa-pinterest"></i></a></li>
+              </ul>
+              <a href="#" class="tm-text-gray text-right d-block mb-2">Terms of Use</a>
+              <a href="#" class="tm-text-gray text-right d-block">Privacy Policy</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">Copyright 2024 Tools Repository. All rights reserved.</div>
+          </div>
+        </div>
+      </footer>
+  </body>
+</html>
