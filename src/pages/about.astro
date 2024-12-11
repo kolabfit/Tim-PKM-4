@@ -1,228 +1,177 @@
 ---
-import Features2 from '~/components/widgets/Features2.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Steps2 from '~/components/widgets/Steps2.astro';
-import Layout from '~/layouts/PageLayout.astro';
-
-const metadata = {
-  title: 'About us',
-};
+import { getPermalink } from '~/utils/permalinks';
 ---
 
-<Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Sentrakreasi PAUD</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/css/templatemo-style.css">
 
-  <Hero
-    tagline="About us"
-    image={{
-      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Caos Image',
-    }}
-  >
-    <Fragment slot="title">
-      Elevate your online presence with our <br />
-      <span class="text-accent dark:text-white highlight"> Beautiful Website Templates</span>
-    </Fragment>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
 
-    <Fragment slot="subtitle">
-      Donec efficitur, ipsum quis congue luctus, mauris magna convallis mauris, eu auctor nisi lectus non augue. Donec
-      quis lorem non massa vulputate efficitur ac at turpis. Sed tincidunt ex a nunc convallis, et lobortis nisi tempus.
-      Suspendisse vitae nisi eget tortor luctus maximus sed non lectus.
-    </Fragment>
-  </Hero>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
 
-  <!-- Stats Widget ****************** -->
+    </div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.astro">
+                <i class="fas fa-film mr-2"></i>
+                Digital Sentrakreasi
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1" href={getPermalink("/")}>Photos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" href={getPermalink("videos")}>Videos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-3 active" aria-current="page" href={getPermalink("about")}>About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" href={getPermalink("contact")}>Contact</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
 
-  <Stats
-    title="Statistics about us"
-    stats={[
-      { title: 'Offices', amount: '4' },
-      { title: 'Employees', amount: '248' },
-      { title: 'Templates', amount: '12' },
-      { title: 'Awards', amount: '24' },
-    ]}
-  />
+    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpg"></div>
 
-  <!-- Features3 Widget ************** -->
+    <div class="container-fluid tm-mt-60">
+        <div class="row mb-4">
+            <h2 class="col-12 tm-text-primary">
+                Tools Repository
+            </h2>
+        </div>
+        <div class="row tm-mb-74 tm-row-1640">            
+            <div class="col-lg-5 col-md-6 col-12 mb-3">
+                <img src="img/about.jpg" alt="Image" class="img-fluid">
+            </div>
+            <div class="col-lg-7 col-md-6 col-12">
+                <div class="tm-about-img-text">
+                    <p class="mb-4">
+                        Repository Tools adalah platform berbasis web yang dirancang khusus untuk menyimpan, mengelola, dan membagikan koleksi gambar dan video dalam bentuk katalog galeri digital. Platform ini memberikan pengalaman yang mudah dan efisien bagi pengguna untuk menemukan, mengakses, dan memanfaatkan konten media secara cepat melalui tautan yang terintegrasi pada setiap gambar atau video.</p>
+                    <p>
+                        Repository Tools bertujuan untuk menjadi solusi utama dalam mengelola media digital, baik untuk kebutuhan pribadi maupun profesional. Dengan desain yang intuitif dan navigasi yang ramah pengguna, platform ini memungkinkan akses ke berbagai konten visual hanya dengan beberapa klik. Setiap gambar atau video dalam katalog dilengkapi dengan deskripsi serta tautan unik. Tautan ini memudahkan pengguna untuk membuka konten terkait atau file asli, sehingga meningkatkan fleksibilitas dan kemudahan akses.</p> 
+                </div>                
+            </div>
+        </div>
+        <div class="row tm-mb-50">
+            <div class="col-md-6 col-12">
+                <div class="tm-about-2-col">
+                    <h2 class="tm-text-primary mb-4">
+                        Left side of 2-Column content
+                    </h2>
+                    <p class="mb-4">
+                        Pellentesque urna odio, scelerisque eu mauris vitae, vestibulum sodales neque. Ut augue justo, tincidunt nec aliquet ac, cursus vel augue. Suspendisse vel quam imperdiet, sodales tellus sed, ullamcorper lorem.
+                    </p>
+                    <p>
+                        Suspendisse id consequat risus. Aliquam varius posuere nunc, nec imperdiet neque condimentum at. Aenean porta eleifend venenatis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                    </p>
+                </div>                
+            </div> 
+            <div class="col-md-6 col-12">
+                <div class="tm-about-2-col">
+                    <h2 class="tm-text-primary mb-4">
+                        Right-side Title goes here
+                    </h2>
+                    <p class="mb-4">
+                        Pellentesque urna odio, scelerisque eu mauris vitae, vestibulum sodales neque. Ut augue justo, tincidunt nec aliquet ac, cursus vel augue. Suspendisse vel quam imperdiet, sodales tellus sed, ullamcorper lorem.
+                    </p>
+                    <p>
+                        Suspendisse id consequat risus. Aliquam varius posuere nunc, nec imperdiet neque condimentum at. Aenean porta eleifend venenatis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                    </p>
+                </div>                
+            </div>     
+        </div> <!-- row -->
+        <div class="row tm-mb-50">
+            <div class="col-md-4 col-12">
+                <div class="tm-about-3-col">
+                    <div class="tm-about-icon-container mb-5">
+                        <i class="fas fa-desktop fa-3x tm-text-primary"></i>
+                    </div>                
+                    <h2 class="tm-text-primary mb-4">Koleksi Luas</h2>
+                    <p class="mb-4">Ribuan foto dan video dalam berbagai kategori, mulai dari alam, bisnis, gaya hidup, hingga teknologi.</p>
+                </div>                
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="tm-about-3-col">
+                    <div class="tm-about-icon-container mb-5">
+                        <i class="fas fa-mobile-alt fa-3x tm-text-primary"></i>
+                    </div>                
+                    <h2 class="tm-text-primary mb-4">Kemudahan Akses</h2>
+                    <p class="tm-mb-50">Klik tombol untuk langsung mengunduh foto atau video yang Anda pilih, tanpa repot.</p>
+                </div>                
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="tm-about-3-col">
+                    <div class="tm-about-icon-container mb-5">
+                        <i class="fas fa-photo-video fa-3x tm-text-primary"></i>
+                    </div>                
+                    <h2 class="tm-text-primary mb-4">Gratis dan Lisensi Aman</h2>
+                    <p class="mb-4">Jelajahi koleksi kami dengan tenang, karena kami menjamin konten yang tersedia telah dilengkapi lisensi penggunaan yang sesuai.</p>
+                </div>                
+            </div>
+        </div>
+    </div> <!-- container-fluid, tm-container-content -->
 
-  <Features3
-    title="Our templates"
-    subtitle="Etiam scelerisque, enim eget vestibulum luctus, nibh mauris blandit nulla, nec vestibulum risus justo ut enim. Praesent lacinia diam et ante imperdiet euismod."
-    columns={3}
-    isBeforeContent={true}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'Morbi faucibus luctus quam, sit amet aliquet felis tempor id. Cras augue massa, ornare quis dignissim a, molestie vel nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Vivamus porttitor, tortor convallis aliquam pretium, turpis enim consectetur elit, vitae egestas purus erat ac nunc nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Photography',
-        description:
-          'Duis sed lectus in nisl vehicula porttitor eget quis odio. Aliquam erat volutpat. Nulla eleifend nulla id sem fermentum.',
-        icon: 'tabler:template',
-      },
-    ]}
-  />
-
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    columns={3}
-    isAfterContent={true}
-    items={[
-      {
-        title: 'E-commerce',
-        description:
-          'Rutrum non odio at vehicula. Proin ipsum justo, dignissim in vehicula sit amet, dignissim id quam. Sed ac tincidunt sapien.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Blog',
-        description:
-          'Nullam efficitur volutpat sem sed fringilla. Suspendisse et enim eu orci volutpat laoreet ac vitae libero.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Business',
-        description:
-          'Morbi et elit finibus, facilisis justo ut, pharetra ipsum. Donec efficitur, ipsum quis congue luctus, mauris magna.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Suspendisse vitae nisi eget tortor luctus maximus sed non lectus. Cras malesuada pretium placerat. Nullam venenatis dolor a ante rhoncus.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Medical',
-        description:
-          'Vestibulum malesuada lacus id nibh posuere feugiat. Nam volutpat nulla a felis ultrices, id suscipit mauris congue. In hac habitasse platea dictumst.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus.',
-        icon: 'tabler:template',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'Colorful Image',
-    }}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Our values"
-    subtitle="Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus. Nulla facilisi. Vestibulum malesuada lacus."
-    items={[
-      {
-        title: 'Customer-centric approach',
-        description:
-          'Donec id nibh neque. Quisque et fermentum tortor. Fusce vitae dolor a mauris dignissim commodo. Ut eleifend luctus condimentum.',
-      },
-      {
-        title: 'Constant Improvement',
-        description:
-          'Phasellus laoreet fermentum venenatis. Vivamus dapibus pulvinar arcu eget mattis. Fusce eget mauris leo.',
-      },
-      {
-        title: 'Ethical Practices',
-        description:
-          'Vestibulum imperdiet libero et lectus molestie, et maximus augue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      },
-    ]}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Achievements"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla, sed porttitor est nibh at nulla."
-    isReversed={true}
-    callToAction={{
-      text: 'See more',
-      href: '/',
-    }}
-    items={[
-      {
-        title: 'Global reach',
-        description: 'Nam malesuada urna in enim imperdiet tincidunt. Phasellus non tincidunt nisi, at elementum mi.',
-        icon: 'tabler:globe',
-      },
-      {
-        title: 'Positive customer feedback and reviews',
-        description:
-          'Cras semper nulla leo, eget laoreet erat cursus sed. Praesent faucibus massa in purus iaculis dictum.',
-        icon: 'tabler:message-star',
-      },
-      {
-        title: 'Awards and recognition as industry experts',
-        description:
-          'Phasellus lacinia cursus velit, eu malesuada magna pretium eu. Etiam aliquet tellus purus, blandit lobortis ex rhoncus vitae.',
-        icon: 'tabler:award',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Our locations"
-    tagline="Find us"
-    columns={4}
-    items={[
-      {
-        title: 'EE.UU',
-        description: '1234 Lorem Ipsum St, 12345, Miami',
-      },
-      {
-        title: 'Spain',
-        description: '5678 Lorem Ipsum St, 56789, Madrid',
-      },
-      {
-        title: 'Australia',
-        description: '9012 Lorem Ipsum St, 90123, Sydney',
-      },
-      {
-        title: 'Brazil',
-        description: '3456 Lorem Ipsum St, 34567, São Paulo',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Technical Support"
-    tagline="Contact us"
-    columns={2}
-    items={[
-      {
-        title: 'Chat with us',
-        description:
-          'Integer luctus laoreet libero, auctor varius purus rutrum sit amet. Ut nec molestie nisi, quis eleifend mi.',
-        icon: 'tabler:messages',
-      },
-      {
-        title: 'Call us',
-        description:
-          'Mauris faucibus finibus orci, in posuere elit viverra non. In hac habitasse platea dictumst. Cras lobortis metus a hendrerit congue.',
-        icon: 'tabler:headset',
-      },
-    ]}
-  />
-</Layout>
+    <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
+        <div class="container-fluid tm-container-small">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
+                    <h3 class="tm-text-primary mb-4 tm-footer-title">Tools Repository</h3>
+                    <p>Catalog-Z is free Bootstrap 5 Alpha 2 HTML Template for video and photo websites. You can freely use this TemplateMo layout for a front-end integration with any kind of CMS website.</p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                    <h3 class="tm-text-primary mb-4 tm-footer-title">Our Links</h3>
+                    <ul class="tm-footer-links pl-0">
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Our Company</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
+                    <ul class="tm-social-links d-flex justify-content-end pl-0 mb-5">
+                        <li class="mb-2"><a href="https://facebook.com"><i class="fab fa-facebook"></i></a></li>
+                        <li class="mb-2"><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
+                        <li class="mb-2"><a href="https://instagram.com"><i class="fab fa-instagram"></i></a></li>
+                        <li class="mb-2"><a href="https://pinterest.com"><i class="fab fa-pinterest"></i></a></li>
+                    </ul>
+                    <a href="#" class="tm-text-gray text-right d-block mb-2">Terms of Use</a>
+                    <a href="#" class="tm-text-gray text-right d-block">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
+                    Copyright 2020 Catalog-Z Company. All rights reserved.
+                </div>
+                <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
+                    Designed by <a href="https://templatemo.com" class="tm-text-gray" rel="sponsored" target="_parent">TemplateMo</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        window.onload = function() {
+            document.body.classList.add('loaded');
+        };
+    </script>  
+</body>
+</html>
