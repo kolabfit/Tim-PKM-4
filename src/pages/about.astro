@@ -141,6 +141,9 @@ import { getPermalink } from '~/utils/permalinks';
         window.onload = function() {
             document.body.classList.add('loaded');
         };
+        document.addEventListener('DOMContentLoaded', () => {
+          console.log(window.innerWidth); // Sekarang Anda bisa akses window
+        });
     </script>  
 </body>
 </html>
