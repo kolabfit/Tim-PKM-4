@@ -16,6 +16,7 @@ const galleryImages = await getGalleryImages();
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="/css/templatemo-style.css" />
+    <link rel="icon" href="images/logo pkm.png" type="image/png">
     <style>
         .tm-video-item img {
           width: 4000px;
@@ -34,9 +35,9 @@ const galleryImages = await getGalleryImages();
     </div>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.astro">
+        <a class="navbar-brand" href={getPermalink('/')}>
           <!-- <i class="fas fa-film mr-2"></i> -->
-          Digital Sentrakreasi
+          <img src="images/logo pkm.png" alt="Logo Website" style="width: 85px; height: 85px">
         </a>
         <button
           class="navbar-toggler"
@@ -68,11 +69,11 @@ const galleryImages = await getGalleryImages();
       </div>
     </nav>
 
-    <div class="tm-hero d-flex justify-content-center align-items-center" id="tm-video-container">
-      <video autoplay muted loop id="tm-video">
+    <div class="tm-hero d-flex justify-content-center align-items-center">
+      <!-- <video autoplay muted loop id="tm-video">
         <source src="video/hero.mp4" type="video/mp4" />
-      </video>
-      <i id="tm-video-control-button" class="fas fa-pause"></i>
+      </video> -->
+      <!-- <i id="tm-video-control-button" class="fas fa-pause"></i> -->
       <form class="d-flex position-absolute tm-search-form">
         <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search" />
         <button class="btn btn-outline-success tm-search-btn" type="submit">
@@ -83,35 +84,32 @@ const galleryImages = await getGalleryImages();
 
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">
-          <h2 class="col-6 tm-text-primary">Latest Photos</h2>
+          <h2 class="col-6 tm-text-primary">Latest Videos</h2>
           <div class="col-6 d-flex justify-content-end align-items-center">
-            <form action="" class="tm-text-primary">
-              Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary" /> of 200
-            </form>
           </div>
         </div>
         <div class="row tm-mb-90 tm-gallery">
-          {
-            galleryImages.length > 0 ? (
-              galleryImages.map((image) => (
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" key={image.sys.id}>
-                  <figure class="effect-ming tm-video-item">
-                    <img src={`https://${image.fields.gambar.fields.file.url}`} alt="Gambar" />
-                    <figcaption class="d-flex align-items-center justify-content-center">
-                      <h2>{image.fields.judulGambar}</h2>
-                      <a href="photo-detail.html">View more</a>
-                    </figcaption>
-                  </figure>
-                  <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">18 Oct 2020</span>
-                    <span>9,906 views</span>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No gallery images found.</p>
-            )
-          }
+            {
+                galleryImages.length > 0 ? (
+                  galleryImages.map((image, index) => (
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" key={image.sys.id}>
+                      <figure class="effect-ming tm-video-item">
+                        <img src={`https://${image.fields.gambar.fields.file.url}`} alt="Gambar" />
+                        <figcaption class="d-flex align-items-center justify-content-center">
+                          <h2>{image.fields.judulGambar}</h2>
+                          <a href={getPermalink(`photoDetail/${index + 1}`)}>Detail Photo</a>
+                        </figcaption>
+                      </figure>
+                      <div class="d-flex justify-content-between tm-text-gray">
+                        <span class="tm-text-gray-light">10 Dec 2024</span>
+                        <span>126 views</span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p>No gallery images found.</p>
+                )
+              }
         </div>
       </div>
       <div class="container-fluid tm-container-content tm-mt-60">

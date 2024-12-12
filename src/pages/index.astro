@@ -18,6 +18,8 @@ const bannerImageUrl = await getBannerImage();
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="/css/templatemo-style.css" />
+    <link rel="icon" href="images/logo pkm.png" type="image/png">
+    <!-- <link rel="icon" href="images/logo-32x32.png" sizes="32x32" type="image/png"> -->
     <style>
       .tm-video-item img {
         width: 4000px;
@@ -35,9 +37,10 @@ const bannerImageUrl = await getBannerImage();
     </div>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href={getPermalink('/')}>
           <!-- <i class="fas fa-film mr-2"></i> -->
-          Digital Sentrakreasi
+          <img src="images/logo pkm.png" alt="Logo Website" style="width: 85px; height: 85px">
+           <!-- Digital Sentrakreasi -->
         </a>
         <button
           class="navbar-toggler"
@@ -72,7 +75,7 @@ const bannerImageUrl = await getBannerImage();
     <div
       class="tm-hero d-flex justify-content-center align-items-center"
       data-parallax="scroll"
-      data-image-src="/images/banner.png"
+      data-image-src="images/banner.png"
     >
       <form class="d-flex tm-search-form">
         <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search" />
