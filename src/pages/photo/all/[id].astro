@@ -1,0 +1,141 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { getGalleryImages } from '~/components/contentful/contentful';
+import { contentfulClient } from '~/components/lib/contentful';
+import type { Asset, EntryFieldTypes, UnresolvedLink } from 'contentful';
+
+interface GalleryImagesType {
+  contentTypeId: string;
+  fields: {
+    judulGambar: EntryFieldTypes.Text;
+    gambar: EntryFieldTypes.AssetLink;
+    deskripsiGambar: EntryFieldTypes.Text;
+    urlCanva: EntryFieldTypes.Text;
+    kategori: EntryFieldTypes.Text;
+  };
+}
+
+// Fetch current page entries
+const galleryImages = await contentfulClient.getEntries<GalleryImagesType>({
+  content_type: 'galleryImg',
+  limit: 8,
+});
+
+const ContentItems = galleryImages.items.map((item) => {
+  const imageAsset: Asset | undefined = galleryImages.includes?.Asset?.find(
+    (asset: Asset) => asset?.sys?.id === item?.fields?.gambar?.sys?.id
+  );
+
+  const imageURL: string | null = typeof imageAsset?.fields?.file?.url === 'string' ? imageAsset.fields.file.url : null;
+
+  return {
+    title: item.fields.judulGambar,
+    image: { src: imageURL, alt: item.fields.judulGambar },
+  };
+});
+
+// Fetch dynamic data for each possible route using getStaticPaths
+export async function getStaticPaths() {
+  // Fetch all entries of type 'edutimentPaketType' from Contentful
+  const entries = await contentfulClient.getEntries<GalleryImagesType>({
+    content_type: 'galleryImg',
+  });
+
+  // Generate a list of paths for all `entryname` values
+  return entries.items.map((item) => ({
+    params: { id: item.fields.judulGambar },
+  }));
+}
+
+// Get the current route parameter
+const { id } = Astro.params;
+
+// Fetch the specific entry based on the dynamic `id`
+const entries = await contentfulClient.getEntries<GalleryImagesType>({
+  content_type: 'galleryImg',
+  'fields.judulGambar': id, // Use the `id` from URL to match the entryname in Contentful
+});
+
+// Handle case where no entries are found
+if (!entries.items.length) {
+  throw new Error('Content not found');
+}
+
+// Get the first item (as we are only fetching a single entry with this id)
+const item = entries.items[0];
+
+// Ensure all necessary fields are present
+const {
+  judulGambar,
+  deskripsiGambar,
+  gambar,
+  urlCanva,
+  kategori,
+} : {
+  judulGambar: string;
+  deskripsiGambar: string;
+  gambar: Asset<undefined, string> | UnresolvedLink<"Asset">;
+  urlCanva: string;
+  kategori: string;
+} = item.fields;
+
+const title = item.fields.judulGambar as string;
+---
+
+<Layout metadata={{ title }}>
+  <div class="container-fluid tm-container-content tm-mt-60">
+    <div class="row mb-4">
+      <h2 class="col-12 tm-text-primary">{judulGambar}</h2>
+    </div>
+    <div class="row tm-mb-90">
+      <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
+        <img src={'fields' in gambar && gambar.fields.file && typeof gambar.fields.file.url === 'string' ? gambar.fields.file.url : ''} alt="Gambar" style="width: 800px; height:600px" />
+      </div>
+      <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+        <div class="tm-bg-gray tm-video-details">
+          <p class="mb-4">
+            {deskripsiGambar}
+          </p>
+          <div class="text-center mb-5">
+            <a href={urlCanva} class="btn btn-primary tm-btn-big" target="_blank">Get Link</a>
+          </div>
+          <div class="mb-4 d-flex flex-wrap">
+            <div class="mr-4 mb-2">
+              <span class="tm-text-gray-dark">Dimension: </span><span class="tm-text-primary">800x600</span>
+            </div>
+            <div class="mr-4 mb-2">
+              <span class="tm-text-gray-dark">Format: </span><span class="tm-text-primary">PNG</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary">Templates</h2>
+      </div>
+      <div class="row tm-mb-90 tm-gallery">
+        {
+          ContentItems.length > 0 ? (
+            ContentItems.map((item, index) => (
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                  <img src={`https://${item.image.src}`} alt="Gambar" />
+                  <figcaption class="d-flex align-items-center justify-content-center">
+                    <h2>{item.title}</h2>
+                    <a href={getPermalink(`photo/all/${item.title}`)}>Detail Photo</a>
+                  </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                  <span class="tm-text-gray-light">10 Dec 2024</span>
+                  <span>126 views</span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No gallery images found.</p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</Layout>

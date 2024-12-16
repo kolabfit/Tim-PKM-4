@@ -1,0 +1,148 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { contentfulClient } from '~/components/lib/contentful';
+import type { Asset, EntryFieldTypes } from 'contentful';
+
+interface GalleryImagesType {
+  contentTypeId: string;
+  fields: {
+    judulGambar: EntryFieldTypes.Text;
+    gambar: EntryFieldTypes.AssetLink;
+    deskripsiGambar: EntryFieldTypes.Text;
+    urlCanva: EntryFieldTypes.Text;
+    kategori: EntryFieldTypes.Text;
+  };
+}
+
+export async function getStaticPaths() {
+  const currentCategory = 'Flyer';
+  // We do an initial fetch just to get the total items.
+  const entries = await contentfulClient.getEntries<GalleryImagesType>({
+    content_type: 'galleryImg',
+    'fields.kategori': currentCategory,
+    limit: 0,
+  });
+
+  const itemsPerPage = 8;
+  const totalPages = Math.ceil(entries.total / itemsPerPage);
+  const paths = [{ params: { page: '1' } }];
+  for (let i = 1; i <= totalPages; i++) {
+    paths.push({ params: { page: String(i) } });
+  }
+
+  return paths;
+}
+
+// Fetch route parameters
+const { page } = Astro.params;
+const itemsPerPage = 8;
+const currentPagination = page ? parseInt(page, 10) : 1;
+const currentCategory = 'Flyer';
+
+// Fetch total entries for this category
+const totalEntries = await contentfulClient.getEntries<GalleryImagesType>({
+  content_type: 'galleryImg',
+  'fields.kategori': currentCategory,
+  limit: 0,
+});
+
+// Calculate pagination details
+const totalPages = Math.ceil(totalEntries.total / itemsPerPage);
+const hasPrevious = currentPagination > 1;
+const hasNext = currentPagination < totalPages;
+
+// Fetch current page entries
+const galleryImages = await contentfulClient.getEntries<GalleryImagesType>({
+  content_type: 'galleryImg',
+  'fields.kategori': currentCategory,
+  skip: (currentPagination - 1) * itemsPerPage,
+  limit: itemsPerPage,
+});
+
+// Map the items for rendering
+const ContentItems = galleryImages.items.map((item) => {
+  const imageAsset: Asset | undefined = galleryImages.includes?.Asset?.find(
+    (asset: Asset) => asset?.sys?.id === item?.fields?.gambar?.sys?.id
+  );
+
+  const imageURL: string | null = typeof imageAsset?.fields?.file?.url === 'string' ? imageAsset.fields.file.url : null;
+
+  return {
+    title: item.fields.judulGambar,
+    image: { src: imageURL, alt: item.fields.judulGambar },
+  };
+});
+
+const title = `Category: ${currentCategory}`;
+---
+
+<Layout metadata={{ title }}>
+  <div class="container-fluid tm-container-content tm-mt-60">
+    <div class="row mb-4">
+      <h2 class="col-6 tm-text-primary">Category: {currentCategory}</h2>
+    </div>
+    <div class="row tm-mb-90 tm-gallery">
+      {
+        ContentItems.length > 0 ? (
+          ContentItems.map((item, index) => (
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+              <figure class="effect-ming tm-video-item">
+                {item.image && (
+                  <img
+                    src={`https://${item.image.src}`}
+                    alt={item.image.alt}
+                    style="max-height: 400px; min-height: 400px; object-fit: cover;"
+                  />
+                )}
+                <figcaption class="d-flex align-items-center justify-content-center">
+                  <h2>{item.title}</h2>
+                  <a href={getPermalink(`photoDetail/${(currentPagination - 1) * itemsPerPage + index + 1}`)}>
+                    Detail Photo
+                  </a>
+                </figcaption>
+              </figure>
+              <div class="d-flex justify-content-between tm-text-gray">
+                <span class="tm-text-gray-light">10 Dec 2024</span>
+                <span>126 views</span>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No gallery images found.</p>
+        )
+      }
+    </div>
+  </div>
+  <div class="container-fluid tm-container-content tm-mt-60">
+    <div class="row mb-4"></div>
+
+    <!-- Pagination controls -->
+    <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+      <a
+        href={hasPrevious ? getPermalink(`/photos/flyer/${currentPagination - 1}`) : 'javascript:void(0);'}
+        class={`btn btn-primary tm-btn-prev mb-2 ${!hasPrevious ? 'disabled' : ''}`}
+      >
+        Previous
+      </a>
+      <div class="tm-paging d-flex">
+        {
+          Array.from({ length: totalPages }, (_, i) => (
+            <a
+              href={getPermalink(`/photos/flyer/${i + 1}`)}
+              class={`tm-paging-link ${currentPagination === i + 1 ? 'active' : ''}`}
+            >
+              {i + 1}
+            </a>
+          ))
+        }
+      </div>
+      <a
+        href={hasNext ? getPermalink(`/photos/flyer/${currentPagination + 1}`) : 'javascript:void(0);'}
+        class={`btn btn-primary tm-btn-next ${!hasNext ? 'disabled' : ''}`}
+      >
+        Next Page
+      </a>
+    </div>
+  </div>
+</Layout>
