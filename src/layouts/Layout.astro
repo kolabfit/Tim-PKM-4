@@ -40,9 +40,12 @@ const { language, textDirection } = I18N;
 
     <!-- Comment the line below to disable View Transitions -->
     <ViewTransitions fallback="swap" />
+    <script>
+      document.documentElement.classList.remove('dark');
+    </script>
   </head>
 
-  <body class="antialiased text-default bg-page tracking-tight loaded">
+  <body class="antialiased text-default bg-page tracking-tight">
     <slot />
 
     <BasicScripts />
