@@ -14,6 +14,7 @@ import type { AstroIntegration } from 'astro';
 import astrowind from './vendor/integration';
 
 import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehypePlugin } from './src/utils/frontmatter';
+import pagefind from 'astro-pagefind';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -69,6 +70,8 @@ export default defineConfig({
     astrowind({
       config: './src/config.yaml',
     }),
+
+    pagefind()
   ],
 
   image: {

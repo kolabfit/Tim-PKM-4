@@ -2,11 +2,12 @@
 import { getPermalink } from '~/utils/permalinks';
 import { getGalleryImages } from '~/components/contentful/contentful';
 import { getBannerImage } from '~/components/contentful/contentful';
-
+import Pagefind from 'astro-pagefind/components/Search';
 
 // Ambil data dari Contentful
 const galleryImages = await getGalleryImages();
 const bannerImageUrl = await getBannerImage();
+
 ---
 
 <!doctype html>
@@ -18,7 +19,7 @@ const bannerImageUrl = await getBannerImage();
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="/css/templatemo-style.css" />
-    <link rel="icon" href="images/logo pkm.png" type="image/png">
+    <link rel="icon" href="images/logo pkm.png" type="image/png" />
     <!-- <link rel="icon" href="images/logo-32x32.png" sizes="32x32" type="image/png"> -->
     <style>
       .tm-video-item img {
@@ -39,8 +40,8 @@ const bannerImageUrl = await getBannerImage();
       <div class="container-fluid">
         <a class="navbar-brand" href={getPermalink('/')}>
           <!-- <i class="fas fa-film mr-2"></i> -->
-          <img src="images/logo pkm.png" alt="Logo Website" style="width: 85px; height: 85px">
-           <!-- Digital Sentrakreasi -->
+          <img src="images/logo pkm.png" alt="Logo Website" style="width: 85px; height: 85px" />
+          <!-- Digital Sentrakreasi -->
         </a>
         <button
           class="navbar-toggler"
@@ -77,12 +78,16 @@ const bannerImageUrl = await getBannerImage();
       data-parallax="scroll"
       data-image-src="images/banner.png"
     >
-      <form class="d-flex tm-search-form">
-        <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success tm-search-btn" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
+      <Pagefind
+        id="search"
+        className="pagefind-ui h-full w-full"
+        uiOptions={{
+          showImages: false,
+          translations: {
+            placeholder: 'Cari Template Disini...',
+          },
+        }}
+      />
     </div>
 
     <div class="container-fluid tm-container-content tm-mt-60">
@@ -169,8 +174,8 @@ const bannerImageUrl = await getBannerImage();
       };
 
       document.addEventListener('DOMContentLoaded', () => {
-  console.log(window.innerWidth); // Sekarang Anda bisa akses window
-});
+        console.log(window.innerWidth); // Sekarang Anda bisa akses window
+      });
     </script>
   </body>
 </html>
