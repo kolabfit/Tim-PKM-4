@@ -2,6 +2,7 @@
 import { getPermalink } from '~/utils/permalinks';
 import { getGalleryVideos } from '~/components/contentful/contentful';
 import { getGalleryImages } from '~/components/contentful/contentful';
+import Pagefind from 'astro-pagefind/components/Search';
 
 const GalleryVideos = await getGalleryVideos();
 const galleryImages = await getGalleryImages();
@@ -50,7 +51,21 @@ const galleryImages = await getGalleryImages();
         >
           <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <div>
+          <Pagefind
+            id="search"
+            className="pagefind-ui h-full w-full"
+            uiOptions={{
+              showImages: false,
+              translations: {
+                placeholder: 'Cari Template Disini...',
+              },
+            }}
+          />
+        </div>
+
+        <div>
           <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link nav-link-1" href={getPermalink('/')}>Photos</a>
@@ -68,19 +83,6 @@ const galleryImages = await getGalleryImages();
         </div>
       </div>
     </nav>
-
-    <div class="tm-hero d-flex justify-content-center align-items-center">
-      <!-- <video autoplay muted loop id="tm-video">
-        <source src="video/hero.mp4" type="video/mp4" />
-      </video> -->
-      <!-- <i id="tm-video-control-button" class="fas fa-pause"></i> -->
-      <form class="d-flex position-absolute tm-search-form">
-        <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search" />
-        <button class="btn btn-outline-success tm-search-btn" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-    </div>
 
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">

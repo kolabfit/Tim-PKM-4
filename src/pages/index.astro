@@ -7,7 +7,6 @@ import Pagefind from 'astro-pagefind/components/Search';
 // Ambil data dari Contentful
 const galleryImages = await getGalleryImages();
 const bannerImageUrl = await getBannerImage();
-
 ---
 
 <!doctype html>
@@ -37,11 +36,12 @@ const bannerImageUrl = await getBannerImage();
       <div class="loader-section section-right"></div>
     </div>
     <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
+      <div class="container-fluid d-flex flex-row">
         <a class="navbar-brand" href={getPermalink('/')}>
           <!-- <i class="fas fa-film mr-2"></i> -->
           <img src="images/logo pkm.png" alt="Logo Website" style="width: 85px; height: 85px" />
           <!-- Digital Sentrakreasi -->
+           <p>Repository</p>
         </a>
         <button
           class="navbar-toggler"
@@ -54,7 +54,21 @@ const bannerImageUrl = await getBannerImage();
         >
           <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <div>
+          <Pagefind
+            id="search"
+            className="pagefind-ui h-full w-full"
+            uiOptions={{
+              showImages: false,
+              translations: {
+                placeholder: 'Cari Template Disini...',
+              },
+            }}
+          />
+        </div>
+
+        <div>
           <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link nav-link-1 active" aria-current="page" href={getPermalink('/')}>Photos</a>
@@ -72,23 +86,6 @@ const bannerImageUrl = await getBannerImage();
         </div>
       </div>
     </nav>
-
-    <div
-      class="tm-hero d-flex justify-content-center align-items-center"
-      data-parallax="scroll"
-      data-image-src="images/banner.png"
-    >
-      <Pagefind
-        id="search"
-        className="pagefind-ui h-full w-full"
-        uiOptions={{
-          showImages: false,
-          translations: {
-            placeholder: 'Cari Template Disini...',
-          },
-        }}
-      />
-    </div>
 
     <div class="container-fluid tm-container-content tm-mt-60">
       <div class="row mb-4">
