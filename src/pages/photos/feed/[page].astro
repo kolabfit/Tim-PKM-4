@@ -97,14 +97,13 @@ const title = `Category: ${currentCategory}`;
                 )}
                 <figcaption class="d-flex align-items-center justify-content-center">
                   <h2>{item.title}</h2>
-                  <a href={getPermalink(`photoDetail/${(currentPagination - 1) * itemsPerPage + index + 1}`)}>
-                    Detail Photo
-                  </a>
+                <a href={getPermalink(`photo/all/${item.title}`)}>
+                  Detail Photo
+                </a>
                 </figcaption>
               </figure>
               <div class="d-flex justify-content-between tm-text-gray">
-                <span class="tm-text-gray-light">10 Dec 2024</span>
-                <span>126 views</span>
+                <span class="tm-text-gray-light">16 Dec 2024</span>
               </div>
             </div>
           ))
