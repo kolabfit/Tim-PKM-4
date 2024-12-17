@@ -92,14 +92,13 @@ const title = `Category: ${currentCategory}`;
                   <img
                     src={`https://${item.image.src}`}
                     alt={item.image.alt}
+                    class="w-full h-full"
                     style="max-height: 400px; min-height: 400px; object-fit: cover;"
                   />
                 )}
                 <figcaption class="d-flex align-items-center justify-content-center">
                   <h2>{item.title}</h2>
-                <a href={getPermalink(`photo/all/${item.title}`)}>
-                  Detail Photo
-                </a>
+                  <a href={getPermalink(`photo/all/${item.title}`)}>Detail Photo</a>
                 </figcaption>
               </figure>
               <div class="d-flex justify-content-between tm-text-gray">
